@@ -1,0 +1,31 @@
+File: achira_spaceranger.sh
+
+#!/bin/bash
+
+#SBATCH --time=2-10:00:00
+#SBATCH --job-name=spaceranger
+#SBATCH -p 256GB
+#SBATCH --nodes=1
+#SBATCH --output=%A_%a.out
+#SBATCH --error=%A_%a.err
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=achira.shah@utsouthwestern.edu
+
+
+# Load modules
+module add spaceranger/3.0.1
+
+cd "/project/surgery/Tower_lab/s236282/"
+
+# Define variables
+project=/project/surgery/Tower_lab/s236282
+fastqs="${project}/align/rawdata/D1"
+probe="${project}/align/Visium_Mouse_Transcriptome_Probe_Set_v2.csv"
+outdir="${project}/align/spaceranger_outs/827_14L_D1"
+transcriptome="${project}/align/ref/refdata-gex-mm10-2020-A"
+slidefiles="${project}/align/H1_P4MM7PT.vlf"
+
+
+spaceranger count --id=746_13R_A1 --transcriptome=/project/surgery/Tower_lab/s236282/align/ref/refdata-gex-mm10-2020-A --fastqs=/project/surgery/Tower_lab/s236282/align/rawdata/A1 --probe-set=/project/surgery/Tower_lab/s236282/align/Visium_Mouse_Transcriptome_Probe_Set_v2.csv --sample=A1-SI_TS_F2_22NYVNLT4 --image=/project/surgery/Tower_lab/s236282/align/images/13R_OP_746.tif --cytaimage=/project/surgery/Tower_lab/s236282/align/images/CAVG10393_Rfemur_Sammrco_H1_P4MM7PT_A1_50107746_13Rop.tif --slide=H1-P4MM7PT --slidefile=/project/surgery/Tower_lab/s236282/align/H1_P4MM7PT.vlf --area=A1 --create-bam=true --localcores=14 --localmem=256 --output-dir=/project/surgery/Tower_lab/s236282/align/spaceranger_outs/746_13R_A1
+
+#END SCRIPT
